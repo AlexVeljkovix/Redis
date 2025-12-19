@@ -1,0 +1,54 @@
+﻿using backend.DTOs;
+using backend.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace backend.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly UserService _userService;
+        public UserController(UserService userService)
+        {
+            _userService = userService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userService.GetAll();
+            return Ok(users);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult>GetById(string id)
+        {
+            var user=await _userService.GetById(id);
+            if(user==null) return NotFound();
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult>Create(UserDTO user)
+        {
+            var u=await _userService.Create(user);
+            if (u == null) return BadRequest();
+            return Ok(u);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult>Update(string id, UserDTO user)
+        {
+            var u = await _userService.Update(id, user);
+            if (u==null) return NotFound();
+            return Ok(u);
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult>Delete(string id)
+        {
+            var u=await _userService.Delete(id);
+            if(u==null) return NotFound();  
+            return Ok(u);
+        }
+    }
+}
