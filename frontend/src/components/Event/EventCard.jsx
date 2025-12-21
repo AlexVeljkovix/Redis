@@ -1,0 +1,47 @@
+import { Link } from "react-router-dom";
+import EventDetailsPage from "../../pages/Event/EventDetailsPage";
+
+const EventCard = ({ event }) => {
+  const lowSeats = event.availableSeats < 20;
+  const eventDate = new Date(event.date);
+
+  return (
+    <div className="bg-linear-to-br from-indigo-600 to-purple-600 p-0.5 shadow-lg hover:shadow-xl transition w-full max-w-3xl mx-auto">
+      <div className="bg-white p-5 h-full flex flex-col">
+        {/* HEADER */}
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="text-2xl font-bold text-gray-900">{event.name}</h3>
+
+          <span
+            className={`font-semibold px-2 py-1 rounded-full ${
+              lowSeats
+                ? "bg-red-100 text-red-600"
+                : "bg-green-100 text-green-600"
+            }`}
+          >
+            {event.availableSeats} seats left
+          </span>
+        </div>
+
+        {/* INFO */}
+        <div className=" text-gray-600 space-y-1 mb-4">
+          <p>📍 {event.locationName}</p>
+          <p>📅 {event.formatedDate}</p>
+          <p>⏰ {event.formatedTime}</p>
+        </div>
+
+        {/* FOOTER */}
+        <div className="mt-auto">
+          <Link
+            to={`/events/${event.id}`}
+            className="block text-center bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition"
+          >
+            Details
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EventCard;

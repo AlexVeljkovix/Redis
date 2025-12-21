@@ -70,7 +70,6 @@ namespace backend.Services
             {
                 UserId = reservation.UserId,
                 EventId = reservation.EventId,
-                Confirmed = reservation.Confirmed,
                 CreatedAt = reservation.CreatedAt
             };
             var reservationJson = JsonSerializer.Serialize(res);

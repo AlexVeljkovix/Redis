@@ -1,10 +1,10 @@
-import { Get, Create, Put, Delete } from "./HttpClient";
+import { Get, Post, Put, Delete } from "./HttpClient";
 
 export function getAllUsers() {
   return Get("/user");
 }
 
-export function getAllUserReservationIds(id) {
+export function getUserReservationIds(id) {
   return Get(`/user/${id}/reservations`);
 }
 
@@ -13,7 +13,7 @@ export function getUserById(id) {
 }
 
 export function createUser(user) {
-  return Create("/user", user);
+  return Post("/user", user);
 }
 
 export function updateUser(id, user) {

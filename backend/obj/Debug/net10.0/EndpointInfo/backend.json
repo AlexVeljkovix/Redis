@@ -1032,9 +1032,6 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
-          },
-          "confirmed": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1053,9 +1050,6 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
-          },
-          "confirmed": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false

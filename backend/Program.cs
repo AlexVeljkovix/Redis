@@ -5,9 +5,9 @@ using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// =======================
+// =====================
 // Redis
-// =======================
+// =====================
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var configuration = ConfigurationOptions.Parse("localhost:6379");
@@ -16,51 +16,45 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 
 builder.Services.AddSingleton<RedisContext>();
 
-// =======================
-// Repositories
-// =======================
+// =====================
+// Repos & Services
+// =====================
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IEventRepo, EventRepo>();
 builder.Services.AddScoped<IReservationRepo, ReservationRepo>();
 builder.Services.AddScoped<ILocationRepo, LocationRepo>();
 
-// =======================
-// Services
-// =======================
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<ReservationService>();
 builder.Services.AddScoped<LocationService>();
 
-// =======================
-// Controllers
-// =======================
+// =====================
+// Controllers & Swagger
+// =====================
 builder.Services.AddControllers();
-
-// =======================
-// Swagger
-// =======================
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// =======================
-// CORS
-// =======================
+// =====================
+// CORS - razvoj
+// =====================
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("DevCorsPolicy", policy =>
     {
         policy
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+            .WithOrigins("http://localhost:5173") // promeni port po potrebi
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
 var app = builder.Build();
 
-// =======================
-// Middleware pipeline
-// =======================
+// =====================
+// Middleware
+// =====================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -69,7 +63,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors();           // CORS mora PRE MapControllers
+// CORS mora pre Authorization i MapControllers
+app.UseCors("DevCorsPolicy");
+
 app.UseAuthorization();
 
 app.MapControllers();
