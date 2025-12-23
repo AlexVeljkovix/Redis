@@ -130,6 +130,32 @@
   },
   {
     "ContainingType": "backend.Controllers.EventController",
+    "Method": "GetEventReservationNumber",
+    "RelativePath": "api/Event/{id}/reservationnumber",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "backend.Controllers.EventController",
     "Method": "GetEventReservationIds",
     "RelativePath": "api/Event/{id}/reservations",
     "HttpMethod": "GET",

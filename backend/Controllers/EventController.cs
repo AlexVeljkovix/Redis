@@ -29,6 +29,13 @@ namespace backend.Controllers
             return Ok(reservations);
         }
 
+        [HttpGet("{id}/reservationnumber")]
+        public async Task<ActionResult<int>>GetEventReservationNumber(string id)
+        {
+            var reservationsNumber = await _eventService.GetEventReservationNumber(id);
+            return Ok(reservationsNumber);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>>GetById(string id)
         {

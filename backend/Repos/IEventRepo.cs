@@ -6,6 +6,7 @@ namespace backend.Repos
     {
         public Task<IEnumerable<Event>> GetAll();
         public Task<Event?> GetById(string id);
+        public Task<int> GetEventReservationNumber(string eventId);
         public Task<Event?> Create(Event e);
         public Task<Event?> Update(Event e);
         public Task<Event?> Delete(string id);

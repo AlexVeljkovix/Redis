@@ -2,70 +2,93 @@ import { useState, useEffect, useContext, createContext } from "react";
 import {
   getAllEvents,
   getEventReservationIds,
+  getEventReservationNumber,
   createEvent,
   updateEvent,
   deleteEvent,
 } from "../api/eventApi";
+import { getLocationById } from "../api/locationApi";
 
 const EventContext = createContext();
+
+const enrichEvent = async (event) => {
+  const [location, reservationNumber] = await Promise.all([
+    getLocationById(event.locationId),
+    getEventReservationNumber(event.id),
+  ]);
+
+  const date = new Date(event.date);
+
+  return {
+    ...event,
+    formattedDate: date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }),
+    formattedTime: date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    location,
+    reservationNumber,
+  };
+};
 
 export const EventProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const eventDate = new Date(event.date);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const data = await getAllEvents();
-        setEvents(
-          data.map((event) => ({
-            ...event,
-            formatedDate: new Date(event.date).toLocaleDateString("en-GB", {
-              day: "2-digit",
-              month: "short",
-              year: "numeric",
-            }),
-            formatedTime: new Date(event.date).toLocaleTimeString("en-GB", {
-              hour: "2-digit",
-              minute: "2-digit",
-            }),
-          }))
+
+        const enrichedEvents = await Promise.all(
+          data.map((event) => enrichEvent(event))
         );
+
+        setEvents(enrichedEvents);
       } catch (err) {
+        console.error(err);
         setError(err);
       } finally {
         setIsLoading(false);
       }
     };
+
     fetchEvents();
   }, []);
 
   const getEventById = (id) => {
-    return events.find((event) => event.id === id);
+    return events.find((e) => e.id === id) ?? null;
   };
 
   const getReservationsForEvent = async (eventId) => {
     return await getEventReservationIds(eventId);
   };
 
-  const addEvent = async (event) => {
-    const ev = await createEvent(event);
-    setEvents((prevEvents) => [...prevEvents, ev]);
+  const getEventReservationInfo = async (eventId) => {
+    return await getEventReservationNumber(eventId);
   };
-  const changeEvent = async (eventId, updatedEvent) => {
-    await updateEvent(eventId, updatedEvent);
-    setEvents((prevEvents) =>
-      prevEvents.map((event) => (event.id === eventId ? updatedEvent : event))
-    );
+  const addEvent = async (eventData) => {
+    const created = await createEvent(eventData);
+    const enriched = await enrichEvent(created);
+
+    setEvents((prev) => [...prev, enriched]);
+  };
+
+  const changeEvent = async (eventId, updatedData) => {
+    const updated = await updateEvent(eventId, updatedData);
+    const enriched = await enrichEvent(updated);
+
+    setEvents((prev) => prev.map((e) => (e.id === eventId ? enriched : e)));
   };
 
   const removeEvent = async (eventId) => {
     await deleteEvent(eventId);
-    setEvents((prevEvents) =>
-      prevEvents.filter((event) => event.id !== eventId)
-    );
+    setEvents((prev) => prev.filter((e) => e.id !== eventId));
   };
 
   return (
@@ -76,6 +99,7 @@ export const EventProvider = ({ children }) => {
         error,
         getEventById,
         getReservationsForEvent,
+        getEventReservationNumber,
         addEvent,
         changeEvent,
         removeEvent,
@@ -86,6 +110,4 @@ export const EventProvider = ({ children }) => {
   );
 };
 
-export const useEvents = () => {
-  return useContext(EventContext);
-};
+export const useEvents = () => useContext(EventContext);

@@ -22,12 +22,18 @@ namespace backend.Services
             return await _eventRepo.GetById(id);
         }
 
+        public async Task<int>GetEventReservationNumber(string eventId)
+        {
+            return await _eventRepo.GetEventReservationNumber(eventId);
+        }
+
         public async Task<Event?>Create(EventDTO e)
         {
             return await _eventRepo.Create(new Event
             {
                 Name=e.Name,
                 LocationId=e.LocationId,
+                Description=e.Description,
                 Date=e.Date,
                 Capacity=e.Capacity,
                 Tags=e.Tags,
@@ -41,6 +47,7 @@ namespace backend.Services
                 Id=id,
                 Name = e.Name,
                 LocationId = e.LocationId,
+                Description=e.Description,
                 Date = e.Date,
                 Capacity = e.Capacity,
                 Tags = e.Tags,

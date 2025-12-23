@@ -4,7 +4,7 @@ import { useEvents } from "../../context/EventContext";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
-  const { getEventById, getReservationsForEvent } = useEvents();
+  const { getEventById, getEventReservationNumber } = useEvents();
 
   const [event, setEvent] = useState(null);
   const [reservations, setReservations] = useState([]);
@@ -18,9 +18,6 @@ const EventDetailsPage = () => {
         const ev = getEventById(eventId);
         if (!ev) throw new Error("Event not found");
         setEvent(ev);
-
-        const res = await getReservationsForEvent(eventId);
-        setReservations(res);
       } catch (err) {
         setError(err.message || "Something went wrong");
       } finally {
@@ -29,7 +26,7 @@ const EventDetailsPage = () => {
     };
 
     fetchData();
-  }, [eventId, getEventById, getReservationsForEvent]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -47,7 +44,7 @@ const EventDetailsPage = () => {
     );
   }
 
-  const availableSeats = event.capacity - reservations.length;
+  const availableSeats = event.capacity - event.reservationNumber;
   const lowAvailability = availableSeats < 20;
 
   return (
@@ -72,8 +69,11 @@ const EventDetailsPage = () => {
             </div>
 
             <p className="text-gray-500">
-              📍 {event.location} · 📅 {event.formatedDate} · ⏰{" "}
-              {event.formatedTime}
+              📍 {event.location.name} · 📅 {event.formattedDate} · ⏰{" "}
+              {event.formattedTime}
+            </p>
+            <p className="text-gray-500">
+              {event.tags.map((tag) => `#${tag} `)}
             </p>
           </div>
 

@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\dtos\\reservationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:dtos\\reservationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\services\\reservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:services\\reservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\services\\eventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,6 +13,46 @@
     {
       "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\repos\\eventrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:repos\\eventrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\repos\\ieventrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:repos\\ieventrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:models\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\repos\\reservationrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:repos\\reservationrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\dtos\\eventdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:dtos\\eventdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\dtos\\reservationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:dtos\\reservationdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:models\\reservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\services\\reservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:services\\reservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|solutionrelative:controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5ADA2BB6-BD8A-FBBA-631C-E748BB1D8E69}|backend.csproj|d:\\fakultet\\iv godina\\napredne baze podataka\\projekti\\redis\\backend\\services\\locationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +66,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,7 +78,85 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "EventController.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Controllers\\EventController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EventController.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Controllers\\EventController.cs*",
+              "RelativeToolTip": "Controllers\\EventController.cs*",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwB8AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T20:27:49.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IEventRepo.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\IEventRepo.cs",
+              "RelativeDocumentMoniker": "Repos\\IEventRepo.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\IEventRepo.cs",
+              "RelativeToolTip": "Repos\\IEventRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T19:59:09.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ReservationRepo.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\ReservationRepo.cs",
+              "RelativeDocumentMoniker": "Repos\\ReservationRepo.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\ReservationRepo.cs",
+              "RelativeToolTip": "Repos\\ReservationRepo.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAA3wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T12:07:48.705Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EventDTO.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\DTOs\\EventDTO.cs",
+              "RelativeDocumentMoniker": "DTOs\\EventDTO.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\DTOs\\EventDTO.cs",
+              "RelativeToolTip": "DTOs\\EventDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T11:58:58.672Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Location.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Models\\Location.cs",
+              "RelativeDocumentMoniker": "Models\\Location.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Models\\Location.cs",
+              "RelativeToolTip": "Models\\Location.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T11:58:26.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Event.cs",
+              "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Models\\Event.cs",
+              "RelativeDocumentMoniker": "Models\\Event.cs",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Models\\Event.cs",
+              "RelativeToolTip": "Models\\Event.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-23T11:58:22.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "ReservationDTO.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\DTOs\\ReservationDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\ReservationDTO.cs",
@@ -67,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "Reservation.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Models\\Reservation.cs",
               "RelativeDocumentMoniker": "Models\\Reservation.cs",
@@ -75,35 +177,38 @@
               "RelativeToolTip": "Models\\Reservation.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-21T11:57:49.101Z"
+              "WhenOpened": "2025-12-21T11:57:49.101Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "EventService.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Services\\EventService.cs",
               "RelativeDocumentMoniker": "Services\\EventService.cs",
               "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Services\\EventService.cs",
               "RelativeToolTip": "Services\\EventService.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBoAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-21T11:52:58.912Z"
+              "WhenOpened": "2025-12-21T11:52:58.912Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "EventRepo.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\EventRepo.cs",
               "RelativeDocumentMoniker": "Repos\\EventRepo.cs",
               "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Repos\\EventRepo.cs",
               "RelativeToolTip": "Repos\\EventRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACMAAAAAAAAAAAAgwDAAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-21T11:52:57.478Z"
+              "WhenOpened": "2025-12-21T11:52:57.478Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "LocationService.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Services\\LocationService.cs",
               "RelativeDocumentMoniker": "Services\\LocationService.cs",
@@ -115,12 +220,12 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Program.cs*",
-              "RelativeToolTip": "Program.cs*",
+              "ToolTip": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAIwEkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-20T17:03:45.07Z",
@@ -128,7 +233,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "ReservationService.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Services\\ReservationService.cs",
               "RelativeDocumentMoniker": "Services\\ReservationService.cs",
@@ -140,7 +245,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "ReservationController.cs",
               "DocumentMoniker": "D:\\Fakultet\\IV Godina\\Napredne baze podataka\\Projekti\\Redis\\backend\\Controllers\\ReservationController.cs",
               "RelativeDocumentMoniker": "Controllers\\ReservationController.cs",

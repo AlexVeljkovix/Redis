@@ -42,6 +42,13 @@ namespace backend.Repos
             }
             return null;
         }
+
+        public async Task<int>GetEventReservationNumber(string eventId)
+        {
+            var key = $"event:{eventId}:reservations";
+            return (int) await _db.SetLengthAsync(key);
+           
+        }
         public async Task<Event?>Create(Event e)
         {
             var key = $"event:{e.Id}";
@@ -98,9 +105,24 @@ namespace backend.Repos
             var e =await GetById(id);
             if(e != null)
             {
-                await _db.KeyDeleteAsync(key);
-                await _db.SetRemoveAsync("allEvents", key);
+                
                 await _db.SetRemoveAsync($"location:{e.LocationId}:events", e.Id);
+                var reservationIds = await _db.SetMembersAsync($"event:{id}:reservations");
+                foreach(var reservationId in reservationIds)
+                {
+                    var resKey = $"reservation:{reservationId}";
+                    var jsonReservation = await _db.HashGetAsync(resKey, "data");
+                    if (!jsonReservation.IsNullOrEmpty)
+                    {
+                        var res = JsonSerializer.Deserialize<Reservation>((string)jsonReservation!);
+                        await _db.SetRemoveAsync($"user:{res.UserId}:reservations", res.Id);
+                        await _db.SetRemoveAsync("allReservations", resKey);
+                        await _db.KeyDeleteAsync(resKey);
+                    }
+                   
+                }
+                await _db.KeyDeleteAsync($"event:{id}:reservations");
+                
                 if(e.Tags!= null)
                 {
                     foreach (var tag in e.Tags)
@@ -108,6 +130,8 @@ namespace backend.Repos
                         await _db.SetRemoveAsync($"tag:{tag}:events", e.Id);
                     }
                 }
+                await _db.KeyDeleteAsync(key);
+                await _db.SetRemoveAsync("allEvents", key);
             }
             return e;
         }

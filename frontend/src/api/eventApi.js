@@ -8,6 +8,10 @@ export function getEventReservationIds(id) {
   return Get(`/event/${id}/reservations`);
 }
 
+export function getEventReservationNumber(id) {
+  return Get(`/event/${id}/reservationnumber`);
+}
+
 export function getEventById(id) {
   return Get(`/event/${id}`);
 }

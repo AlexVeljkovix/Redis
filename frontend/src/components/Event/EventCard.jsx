@@ -19,15 +19,15 @@ const EventCard = ({ event }) => {
                 : "bg-green-100 text-green-600"
             }`}
           >
-            {event.availableSeats} seats left
+            {event.capacity - event.reservationNumber} seats left
           </span>
         </div>
 
         {/* INFO */}
         <div className=" text-gray-600 space-y-1 mb-4">
-          <p>📍 {event.locationName}</p>
-          <p>📅 {event.formatedDate}</p>
-          <p>⏰ {event.formatedTime}</p>
+          <p>📍 {event.location.name}</p>
+          <p>📅 {event.formattedDate}</p>
+          <p>⏰ {event.formattedTime}</p>
         </div>
 
         {/* FOOTER */}
