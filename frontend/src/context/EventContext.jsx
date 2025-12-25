@@ -44,12 +44,13 @@ export const EventProvider = ({ children }) => {
     const fetchEvents = async () => {
       try {
         const data = await getAllEvents();
-
         const enrichedEvents = await Promise.all(
           data.map((event) => enrichEvent(event))
         );
 
-        setEvents(enrichedEvents);
+        setEvents(
+          enrichedEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
+        );
       } catch (err) {
         console.error(err);
         setError(err);
@@ -69,9 +70,6 @@ export const EventProvider = ({ children }) => {
     return await getEventReservationIds(eventId);
   };
 
-  const getEventReservationInfo = async (eventId) => {
-    return await getEventReservationNumber(eventId);
-  };
   const addEvent = async (eventData) => {
     const created = await createEvent(eventData);
     const enriched = await enrichEvent(created);
@@ -99,7 +97,6 @@ export const EventProvider = ({ children }) => {
         error,
         getEventById,
         getReservationsForEvent,
-        getEventReservationNumber,
         addEvent,
         changeEvent,
         removeEvent,

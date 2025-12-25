@@ -4,10 +4,9 @@ import { useEvents } from "../../context/EventContext";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
-  const { getEventById, getEventReservationNumber } = useEvents();
+  const { getEventById } = useEvents();
 
   const [event, setEvent] = useState(null);
-  const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 

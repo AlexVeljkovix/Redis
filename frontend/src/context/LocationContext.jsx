@@ -8,7 +8,7 @@ import {
 
 const LocationsContext = createContext();
 
-export const LocationsProvider = ({ children }) => {
+export const LocationProvider = ({ children }) => {
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,7 +16,7 @@ export const LocationsProvider = ({ children }) => {
     const fetchLocations = async () => {
       try {
         const data = await getAllLocations();
-        setLocations(data);
+        setLocations(data.sort((a, b) => a.name.localeCompare(b.name)));
       } catch (err) {
         setError(err);
       } finally {

@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import UsersPage from "./pages/UsersPage";
-import LocationsPage from "./pages/LocationsPage";
 import EventsPage from "./pages/Event/EventsPage";
 import ReservationsPage from "./pages/ReservationsPage";
 import EventDetailsPage from "./pages/Event/EventDetailsPage";
+import LocationsPage from "./pages/Locations/LocationsPage";
+import LocationDetailsPage from "./pages/Locations/LocationDetailsPage";
 
 const App = () => {
   return (
@@ -12,6 +13,10 @@ const App = () => {
         <Routes>
           <Route path="/users" element={<UsersPage />} />
           <Route path="/locations" element={<LocationsPage />} />
+          <Route
+            path="/locations/:locationId"
+            element={<LocationDetailsPage />}
+          />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:eventId" element={<EventDetailsPage />} />
           <Route path="/reservations" element={<ReservationsPage />} />
