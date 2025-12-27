@@ -4,6 +4,10 @@ export function getAllLocations() {
   return Get("/location");
 }
 
+export function getLocationEvents(id) {
+  return Get(`/location/${id}/events`);
+}
+
 export function getLocationById(id) {
   return Get(`/location/${id}`);
 }

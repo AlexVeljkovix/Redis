@@ -1,36 +1,25 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { useLocations } from "../../context/LocationContext";
 import EditLocationForm from "../../components/Location/EditLocationForm";
 
 const LocationDetailsPage = () => {
   const { locationId } = useParams();
-  const { getLocationById } = useLocations();
-
-  const [location, setLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const {
+    getLocationById,
+    isLoading: locationsLoading,
+    removeLocation,
+  } = useLocations();
 
   const [showForm, setShowForm] = useState(false);
+  const handleDelete = () => {
+    removeLocation(locationId);
+  };
+  // Dohvata lokaciju direktno iz context-a
+  const location = getLocationById(locationId);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const loc = getLocationById(locationId);
-        if (!loc) throw new Error("Location not found");
-        setLocation(loc);
-      } catch (err) {
-        setError(err.message || "Something went wrong");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
+  // Loading dok se context puni
+  if (locationsLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100">
         <p className="text-gray-500 text-lg">Loading location...</p>
@@ -38,13 +27,16 @@ const LocationDetailsPage = () => {
     );
   }
 
-  if (error) {
+  // Ako lokacija ne postoji
+  if (!location) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100">
-        <p className="text-red-500 text-lg">{error}</p>
+        <p className="text-red-500 text-lg">Location not found</p>
       </div>
     );
   }
+
+  // Forma za edit lokacije
   if (showForm) {
     return (
       <div className="min-h-screen bg-slate-100 p-8">
@@ -54,10 +46,12 @@ const LocationDetailsPage = () => {
       </div>
     );
   }
+
+  // Glavni prikaz lokacije
   return (
     <div className="min-h-screen bg-slate-100 p-8">
       {/* GRADIENT WRAPPER */}
-      <div className="max-w-5xl mx-auto bg-linear-to-br from-indigo-600 to-purple-600  p-0.5 shadow-xl">
+      <div className="max-w-5xl mx-auto bg-linear-to-br from-indigo-600 to-purple-600 p-0.5 shadow-xl">
         <div className="bg-white p-8">
           {/* HEADER */}
           <div className="mb-6">
@@ -65,13 +59,20 @@ const LocationDetailsPage = () => {
               <h1 className="text-3xl font-bold text-gray-900">
                 {location.name}
               </h1>
-
-              <button
-                onClick={() => setShowForm(true)}
-                className="bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition cursor-pointer"
-              >
-                Edit Location
-              </button>
+              <div className="flex gap-5">
+                <button
+                  onClick={handleDelete}
+                  className="bg-red-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-red-700 transition cursor-pointer"
+                >
+                  Edit Location
+                </button>
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition cursor-pointer"
+                >
+                  Edit Location
+                </button>
+              </div>
             </div>
 
             <p className="text-gray-500">📍 {location.address}</p>
@@ -91,9 +92,12 @@ const LocationDetailsPage = () => {
               <h3 className="text-lg font-semibold mb-4">
                 See all events at this location
               </h3>
-              <button className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition hover:cursor-pointer">
+              <Link
+                to={`/locations/${locationId}/events`}
+                className="w-full block text-center bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition hover:cursor-pointer"
+              >
                 See events
-              </button>
+              </Link>
             </div>
           </div>
         </div>

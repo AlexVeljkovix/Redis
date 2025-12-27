@@ -28,6 +28,14 @@ namespace backend.Controllers
             if (location == null) return NotFound();
             return Ok(location);
         }
+
+        [HttpGet("{id}/events")]
+        public async Task<ActionResult<IEnumerable<string>>>GetLocationEvents(string id)
+        {
+            var events = await _locationService.GetLocationEvents(id);
+            return Ok(events);
+        }
+
         [HttpPost]
         public async Task<ActionResult<Location>>Create(LocationDTO location)
         {

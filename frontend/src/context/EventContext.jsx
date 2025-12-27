@@ -74,7 +74,9 @@ export const EventProvider = ({ children }) => {
     const created = await createEvent(eventData);
     const enriched = await enrichEvent(created);
 
-    setEvents((prev) => [...prev, enriched]);
+    setEvents((prev) =>
+      [...prev, enriched].sort((a, b) => new Date(a.date) - new Date(b.date))
+    );
   };
 
   const changeEvent = async (eventId, updatedData) => {

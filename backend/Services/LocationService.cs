@@ -7,10 +7,11 @@ namespace backend.Services
     public class LocationService
     {
         private readonly ILocationRepo _locationRepo;
-
-        public LocationService(ILocationRepo locationRepo)
+        private readonly IEventRepo _eventRepo;
+        public LocationService(ILocationRepo locationRepo, IEventRepo eventRepo)
         {
             _locationRepo = locationRepo;
+            _eventRepo = eventRepo;
         }
 
         public async Task<IEnumerable<Location>> GetAll()
@@ -20,6 +21,21 @@ namespace backend.Services
         public async Task<Location?>GetById(string id)
         {
             return await _locationRepo.GetById(id);
+        }
+
+        public async Task<IEnumerable<Event>>GetLocationEvents(string locationId)
+        {
+            var events =new List<Event>();
+            var ids=await _locationRepo.GetLocationEventIds(locationId);
+            foreach(var id in ids)
+            {
+                var e = await _eventRepo.GetById(id);
+                if(e != null)
+                {
+                    events.Add(e);
+                }
+            }
+            return events;
         }
         public async Task<Location?>Create(LocationDTO location)
         {

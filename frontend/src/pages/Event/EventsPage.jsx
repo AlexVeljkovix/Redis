@@ -3,9 +3,14 @@ import { useState } from "react";
 import { useEvents } from "../../context/EventContext";
 import EventCard from "../../components/Event/EventCard";
 import CreateEventForm from "../../components/Event/CreateEventForm";
+import { useSearch } from "../../context/SearchContext";
 const EventsPage = () => {
   const { events, isLoading, error } = useEvents();
   const [showForm, setShowForm] = useState(false);
+  const { searchTerm } = useSearch();
+  const filteredEvents = events.filter((event) =>
+    event.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100">
@@ -53,7 +58,7 @@ const EventsPage = () => {
       </div>
 
       <div className="flex flex-col items-center gap-6 w-4/5 mx-auto">
-        {events.map((event) => (
+        {filteredEvents.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>

@@ -32,14 +32,16 @@ export const LocationProvider = ({ children }) => {
 
   const addLocation = async (location) => {
     const loc = await createLocation(location);
-    setLocations((prevLocations) => [...prevLocations, loc]);
+    setLocations((prevLocations) =>
+      [...prevLocations, loc].sort((a, b) => a.name.localeCompare(b.name))
+    );
   };
 
   const changeLocation = async (locationId, updatedLocation) => {
-    await updateLocation(locationId, updatedLocation);
+    const updatedFromServer = await updateLocation(locationId, updatedLocation);
     setLocations((prevLocations) =>
       prevLocations.map((loc) =>
-        loc.id === locationId ? updatedLocation : loc
+        loc.id === locationId ? { ...loc, ...updatedFromServer } : loc
       )
     );
   };

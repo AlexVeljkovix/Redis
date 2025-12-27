@@ -5,10 +5,13 @@ import ReservationsPage from "./pages/ReservationsPage";
 import EventDetailsPage from "./pages/Event/EventDetailsPage";
 import LocationsPage from "./pages/Locations/LocationsPage";
 import LocationDetailsPage from "./pages/Locations/LocationDetailsPage";
+import LocationEventsPage from "./pages/Locations/LocationEventsPage";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <Navbar />
       <div className="min-h-screen flex flex-col">
         <Routes>
           <Route path="/users" element={<UsersPage />} />
@@ -16,6 +19,10 @@ const App = () => {
           <Route
             path="/locations/:locationId"
             element={<LocationDetailsPage />}
+          />
+          <Route
+            path="/locations/:locationId/events"
+            element={<LocationEventsPage />}
           />
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:eventId" element={<EventDetailsPage />} />

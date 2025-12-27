@@ -2,14 +2,13 @@ import { useState, useContext, createContext, useEffect } from "react";
 
 import {
   getAllReservations,
-  getReservationById,
   createReservation,
   deleteReservation,
 } from "../api/reservationApi";
 
 const ReservationContext = createContext();
 
-export const ReservationProvider = ({ Children }) => {
+export const ReservationProvider = ({ children }) => {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,9 +54,9 @@ export const ReservationProvider = ({ Children }) => {
         removeReservation,
       }}
     >
-      {Children}
+      {children}
     </ReservationContext.Provider>
   );
 };
 
-const useReservations = () => useContext(ReservationContext);
+export const useReservations = () => useContext(ReservationContext);

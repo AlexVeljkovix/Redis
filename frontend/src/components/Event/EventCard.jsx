@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import { useEvents } from "../../context/EventContext";
 const EventCard = ({ event }) => {
   const { removeEvent } = useEvents();
-  const lowSeats = event.availableSeats < 20;
-
+  const availableSeats = event.capacity - event.reservationNumber;
+  const lowSeats = availableSeats < 20;
   return (
     <div className="bg-linear-to-br from-indigo-600 to-purple-600 p-0.5 shadow-lg hover:shadow-xl transition w-full max-w-3xl mx-auto">
       <div className="bg-white p-5 h-full flex flex-col">
@@ -18,7 +18,7 @@ const EventCard = ({ event }) => {
                 : "bg-green-100 text-green-600"
             }`}
           >
-            {event.capacity - event.reservationNumber} seats left
+            {availableSeats} seats left
           </span>
         </div>
 
