@@ -1,7 +1,7 @@
 ﻿using backend.DTOs;
 using backend.Models;
 using backend.Services;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -36,6 +36,7 @@ namespace backend.Controllers
             return Ok(events);
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<Location>>Create(LocationDTO location)
         {
@@ -44,6 +45,7 @@ namespace backend.Controllers
             return Ok(l);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Location>>Update(string id, LocationDTO location)
         {
@@ -52,6 +54,7 @@ namespace backend.Controllers
             return Ok(l);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Location>>Delete(string id)
         {

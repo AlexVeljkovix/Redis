@@ -42,6 +42,28 @@ namespace backend.Repos
             }
             return null;
         }
+
+        public async Task<User?>GetByEmail(string email)
+        {
+            var keys = await _db.SetMembersAsync("allUsers");
+
+            foreach(var key in keys)
+            {
+                var json = await _db.HashGetAsync(key.ToString(), "data");
+                var jsonString = (string)json;
+
+                if (!string.IsNullOrEmpty(jsonString))
+                {
+                    var user = JsonSerializer.Deserialize<User>(jsonString);
+                    if (user != null && user.Email == email)
+                    {
+                        return user;
+                    }
+                }
+
+            }
+            return null;
+        }
         public async Task<User?> Create(User user)
         {
             var key = $"user:{user.Id}";
@@ -72,14 +94,6 @@ namespace backend.Repos
                 await _db.SetRemoveAsync("allUsers", key);
             }
             return user;
-        }
-
-        public async Task<IEnumerable<string>> GetUserReservationIds(string userId)
-        {
-            var key = $"user:{userId}:reservations";
-            var ids = await _db.SetMembersAsync(key);
-
-            return ids.Select(x=>x.ToString());
         }
     }
 }

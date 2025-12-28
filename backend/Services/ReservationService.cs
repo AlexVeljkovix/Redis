@@ -58,6 +58,33 @@ namespace backend.Services
             return await _reservationRepo.GetById(id);
         }
 
+        public async Task<IEnumerable<Reservation>> GetUserReservations(string userId)
+        {
+            var reservations = new List<Reservation>();
+            var ids = await _reservationRepo.GetUserReservationIds(userId);
+            foreach (var id in ids)
+            {
+                var res = await _reservationRepo.GetById(id);
+                if (res != null)
+                {
+                    reservations.Add(res);
+                } 
+            }
+
+            return reservations;
+        }
+
+
+        public async Task<Reservation?> GetUserReservationById(string userId, string reservationId)
+        {
+            var reservation = await _reservationRepo.GetById(reservationId);
+            if (reservation == null) return null;
+
+            if (reservation.UserId != userId) return null;
+
+            return reservation;
+        }
+
         public async Task<Reservation?> Create(ReservationDTO reservation)
         {
             var e = await _eventRepo.GetById(reservation.EventId);

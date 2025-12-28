@@ -21,12 +21,6 @@ namespace backend.Controllers
             var users = await _userService.GetAll();
             return Ok(users);
         }
-        [HttpGet("{id}/reservations")]
-        public async Task<ActionResult<IEnumerable<string>>> GetUserReservationIds(string id)
-        {
-            var reservations = await _userService.GetUserReservationIds(id);
-            return Ok(reservations);
-        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>>GetById(string id)

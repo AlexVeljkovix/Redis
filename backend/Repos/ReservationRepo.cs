@@ -38,6 +38,15 @@ namespace backend.Repos
             }
             return null;
         }
+
+        public async Task<IEnumerable<string>> GetUserReservationIds(string userId)
+        {
+            var key = $"user:{userId}:reservations";
+            var ids = await _db.SetMembersAsync(key);
+
+            return ids.Select(x => x.ToString());
+        }
+
         public async Task<Reservation?> Create(Reservation reservation)
         {
             var key = $"reservation:{reservation.Id}";

@@ -6,6 +6,7 @@ namespace backend.Repos
     {
         public Task<IEnumerable<Reservation>> GetAll();
         public Task<Reservation?> GetById(string id);
+        public Task<IEnumerable<string>> GetUserReservationIds(string userId);
         public Task<Reservation?> Create(Reservation reservation);
         public Task<Reservation?> Delete(string reservationId);
 

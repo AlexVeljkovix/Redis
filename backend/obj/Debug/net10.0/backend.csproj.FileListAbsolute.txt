@@ -39,3 +39,12 @@ D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\ne
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\BCrypt.Net-Next.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll

@@ -1,8 +1,8 @@
 ﻿using backend.Models;
 using backend.Services;
 using backend.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
@@ -44,6 +44,7 @@ namespace backend.Controllers
             return Ok(e);
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<ActionResult<Event>> Create(EventDTO ev)
         {
@@ -52,6 +53,7 @@ namespace backend.Controllers
             return Ok(e);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("{id}")]
         public async Task<ActionResult<Event>> Update(string id, EventDTO ev)
         {
@@ -60,6 +62,7 @@ namespace backend.Controllers
             return Ok(e);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Event>>Delete(string id)
         {
