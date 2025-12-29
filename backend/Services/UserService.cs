@@ -14,40 +14,113 @@ namespace backend.Services
         {
             _userRepo = userRepo; 
         }
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<UserResponseDTO>> GetAll()
         {
-            return _userRepo.GetAll();
+            var users= await _userRepo.GetAll();
+            return users.Select(u => new UserResponseDTO
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role
+            });
         }
 
-        public Task<User?> GetById(string id)
+        public async Task<UserResponseDTO?> GetById(string id)
         {
-            return _userRepo.GetById(id);
+            var user= await _userRepo.GetById(id);
+            if(user==null)
+            {
+                return null;
+            }
+            return new UserResponseDTO
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Role = user.Role
+            };
         }
 
-        public async Task<User?>Create(UserDTO user)
+        public async Task<UserResponseDTO?>Create(UserCreateDTO user)
         {
-            return await _userRepo.Create(new User
+            var existing = await _userRepo.GetByEmail(user.Email);
+
+            if (existing != null)
+            {
+                return null;
+            }
+
+            var u = new User
             {
                 Name = user.Name,
                 Email = user.Email,
                 Role = user.Role,
-                PasswordHash = user.PasswordHash,
-            });
-        }
-        public async Task<User?> Update(string id, UserDTO user)
-        {
-            return await _userRepo.Update(new User
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password)
+            };
+
+            var created= await _userRepo.Create(u);
+            if (created == null) 
+            { 
+                return null; 
+            }
+
+            return new UserResponseDTO
             {
-                Id= id,
-                Name = user.Name,
-                Email = user.Email,
-                Role= user.Role,
-                PasswordHash= user.PasswordHash,
-            });
+                Id=created.Id,
+                Name = created.Name,
+                Email = created.Email,
+                Role = created.Role,
+            };
         }
-        public async Task<User?>Delete(string id)
+        public async Task<UserResponseDTO?> Update(string id, UserUpdateDTO user)
         {
-            return await _userRepo.Delete(id);
+            var u = await _userRepo.GetById(id);
+            if(u == null) 
+            { 
+                return null; 
+            }
+            if (!string.IsNullOrEmpty(user.Name))
+            {
+                u.Name = user.Name;
+            }
+
+            if (!string.IsNullOrEmpty(user.Email))
+            {
+                u.Email = user.Email;
+            }
+
+            if (!string.IsNullOrEmpty(user.Role))
+            {
+                u.Role = user.Role;
+            }
+
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                u.Name = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            }
+            var updated= await _userRepo.Update(u);
+            if (updated == null) { return null; }
+
+            return new UserResponseDTO
+            {
+                Id=updated.Id,
+                Name = updated.Name,
+                Email = updated.Email,
+                Role = updated.Role,
+            };
+
+        }
+        public async Task<UserResponseDTO?>Delete(string id)
+        {
+            var u= await _userRepo.Delete(id);
+            return new UserResponseDTO
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                Role = u.Role
+            };
         }
         
 

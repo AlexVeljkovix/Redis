@@ -45,40 +45,44 @@ namespace backend.Repos
 
         public async Task<User?>GetByEmail(string email)
         {
-            var keys = await _db.SetMembersAsync("allUsers");
-
-            foreach(var key in keys)
+            var userId = await _db.StringGetAsync($"email:{email}");
+            if (userId.IsNullOrEmpty)
             {
-                var json = await _db.HashGetAsync(key.ToString(), "data");
-                var jsonString = (string)json;
-
-                if (!string.IsNullOrEmpty(jsonString))
-                {
-                    var user = JsonSerializer.Deserialize<User>(jsonString);
-                    if (user != null && user.Email == email)
-                    {
-                        return user;
-                    }
-                }
-
+                return null;
             }
-            return null;
+            return await GetById(userId.ToString());
         }
         public async Task<User?> Create(User user)
         {
             var key = $"user:{user.Id}";
             var json = JsonSerializer.Serialize(user);
+            var existingId = await _db.StringGetAsync($"email:{user.Email}");
+            if (!existingId.IsNullOrEmpty)
+            {
+                return null;
+            }
             await _db.HashSetAsync(key, new HashEntry[] {new HashEntry("data", json)});
             await _db.SetAddAsync("allUsers", key);
+            await _db.StringSetAsync($"email:{user.Email}", user.Id);
 
             return user;
         }
         public async Task<User?> Update(User user)
         {
             var key = $"user:{user.Id}";
-            if (!await _db.KeyExistsAsync(key))
+            var old= await GetById(user.Id);
+            if (old == null)
             {
                 return null;
+            }
+            if (old.Email != user.Email)
+            {
+                await _db.KeyDeleteAsync($"email:{old.Email}");
+                var existingId = await _db.StringGetAsync($"email:{user.Email}");
+                if(!existingId.IsNullOrEmpty && existingId.ToString() != user.Id)
+                {
+                    await _db.StringSetAsync($"email:{user.Email}", user.Id);
+                }
             }
             var json = JsonSerializer.Serialize(user);
             await _db.HashSetAsync(key, new HashEntry[] { new HashEntry("data", json) });
@@ -88,10 +92,12 @@ namespace backend.Repos
         {
             var key = $"user:{id}";
             var user = await GetById(id);
+
             if (user != null)
             {
                 await _db.KeyDeleteAsync(key);
                 await _db.SetRemoveAsync("allUsers", key);
+                await _db.KeyDeleteAsync($"email:{user.Email}");
             }
             return user;
         }
