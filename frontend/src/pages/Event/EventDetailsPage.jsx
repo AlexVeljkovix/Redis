@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useEvents } from "../../context/EventContext";
 import { useReservations } from "../../context/ReservationContext";
+import { useAuth } from "../../context/AuthContext";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
   const { getEventById, isLoading: eventsLoading } = useEvents();
   const { addReservation } = useReservations();
+  const { user } = useAuth();
 
   const [reservationLoading, setReservationLoading] = useState(false);
+  const [reservationError, setReservationError] = useState(null);
+  const [reservationSuccess, setReservationSuccess] = useState(false);
 
   const event = getEventById(eventId);
+
+  // Reset poruka nakon 3 sekunde
+  useEffect(() => {
+    if (reservationSuccess || reservationError) {
+      const timer = setTimeout(() => {
+        setReservationSuccess(false);
+        setReservationError(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [reservationSuccess, reservationError]);
 
   if (eventsLoading) {
     return (
@@ -33,10 +48,24 @@ const EventDetailsPage = () => {
 
   const handleReservation = async () => {
     setReservationLoading(true);
+    setReservationError(null);
+    setReservationSuccess(false);
+
     try {
-      await addReservation("user-id-placeholder", event.id, Date.now());
+      await addReservation({
+        userId: user.id,
+        eventId: event.id,
+        createdAt: new Date().toISOString(),
+      });
+      setReservationSuccess(true);
+
+      // Refresh event data da se ažurira broj rezervacija
+      window.location.reload();
     } catch (err) {
-      console.error(err);
+      console.error("Reservation error:", err);
+      setReservationError(
+        err.message || "Failed to create reservation. Event might be full."
+      );
     } finally {
       setReservationLoading(false);
     }
@@ -65,7 +94,7 @@ const EventDetailsPage = () => {
               {event.formattedTime}
             </p>
             <p className="text-gray-500">
-              {event.tags.map((tag) => `#${tag} `)}
+              {event.tags?.map((tag) => `#${tag} `)}
             </p>
           </div>
 
@@ -96,12 +125,30 @@ const EventDetailsPage = () => {
                 )}
               </div>
 
+              {/* Success poruka */}
+              {reservationSuccess && (
+                <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
+                  ✓ Reservation successful!
+                </div>
+              )}
+
+              {/* Error poruka */}
+              {reservationError && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
+                  {reservationError}
+                </div>
+              )}
+
               <button
                 onClick={handleReservation}
                 disabled={reservationLoading || availableSeats === 0}
-                className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition hover:cursor-pointer disabled:opacity-50"
+                className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {reservationLoading ? "Reserving..." : "Reserve seat"}
+                {reservationLoading
+                  ? "Reserving..."
+                  : availableSeats === 0
+                  ? "Sold Out"
+                  : "Reserve seat"}
               </button>
             </div>
           </div>

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useLocations } from "../../context/LocationContext";
+import { useAuth } from "../../context/AuthContext";
 import EditLocationForm from "../../components/Location/EditLocationForm";
 
 const LocationDetailsPage = () => {
   const { locationId } = useParams();
+  const { isAdmin } = useAuth();
   const {
     getLocationById,
     isLoading: locationsLoading,
@@ -60,12 +62,14 @@ const LocationDetailsPage = () => {
                 {location.name}
               </h1>
               <div className="flex gap-5">
-                <button
-                  onClick={handleDelete}
-                  className="bg-red-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-red-700 transition cursor-pointer"
-                >
-                  Edit Location
-                </button>
+                {isAdmin() && (
+                  <button
+                    onClick={handleDelete}
+                    className="bg-red-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-red-700 transition cursor-pointer"
+                  >
+                    Delete
+                  </button>
+                )}
                 <button
                   onClick={() => setShowForm(true)}
                   className="bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition cursor-pointer"

@@ -29,7 +29,6 @@ D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\ne
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\staticwebassets.development.json
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\swae.build.ex.cache
-D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\backend.csproj.Up2Date
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\backend.dll
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\refint\backend.dll
@@ -48,3 +47,4 @@ D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\ne
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
 D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Fakultet\IV Godina\Napredne baze podataka\Projekti\Redis\backend\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

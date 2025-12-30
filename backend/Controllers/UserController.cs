@@ -85,7 +85,7 @@ namespace backend.Controllers
             if (u == null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(u);
         }
 
         [Authorize(Roles ="Admin")]

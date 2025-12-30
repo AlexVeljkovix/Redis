@@ -97,7 +97,7 @@ namespace backend.Services
 
             if (!string.IsNullOrEmpty(user.Password))
             {
-                u.Name = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                u.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             }
             var updated= await _userRepo.Update(u);
             if (updated == null) { return null; }
@@ -144,20 +144,30 @@ namespace backend.Services
             return await _userRepo.Create(user);
         }
 
-        public async Task<User?>Login(LoginDTO dto)
+        public async Task<User?> Login(LoginDTO dto)
         {
-            var user = await _userRepo.GetByEmail(dto.Email);
-            if (user == null)
+            try
             {
-                return null;
-            }
-            var valid = BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
-            if (!valid)
-            {
-                return null;
-            }
-            return user;
+                var user = await _userRepo.GetByEmail(dto.Email);
 
+                if (user == null)
+                {
+                    
+                    return null;
+                }        
+
+                if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
+                {
+                    return null;
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Login exception: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                throw;
+            }
         }
 
     }

@@ -45,16 +45,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // =====================
-// CORS
+// CORS - VAŽNO!
 // =====================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCorsPolicy", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")
+            .WithOrigins("http://localhost:5173", "https://localhost:5173") // Dodaj HTTPS
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials(); // DODAJ OVO!
     });
 });
 
@@ -70,6 +71,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.Zero, // DODAJ OVO
 
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
@@ -77,12 +79,27 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
             )
         };
+
+        // DODAJ EVENT HANDLERS ZA DEBUGGING
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                Console.WriteLine("Token validated successfully");
+                return Task.CompletedTask;
+            }
+        };
     });
 
 var app = builder.Build();
 
 // =====================
-// Middleware
+// Middleware - REDOSLED JE VAŽAN!
 // =====================
 if (app.Environment.IsDevelopment())
 {
@@ -91,10 +108,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS MORA BITI PRE Authentication/Authorization!
 app.UseCors("DevCorsPolicy");
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // Prvo Authentication
+app.UseAuthorization();  // Zatim Authorization
 
 app.MapControllers();
 
@@ -103,8 +122,16 @@ app.MapControllers();
 // =====================
 using (var scope = app.Services.CreateScope())
 {
-    var seedService = scope.ServiceProvider.GetRequiredService<AdminSeedService>();
-    await seedService.SeedAdminAsync(); // pošto si rekao da nije async
+    try
+    {
+        var seedService = scope.ServiceProvider.GetRequiredService<AdminSeedService>();
+        await seedService.SeedAdminAsync();
+        Console.WriteLine("Admin user seeded successfully");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Admin seed failed: {ex.Message}");
+    }
 }
 
 app.Run();

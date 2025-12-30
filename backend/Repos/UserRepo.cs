@@ -43,14 +43,32 @@ namespace backend.Repos
             return null;
         }
 
-        public async Task<User?>GetByEmail(string email)
+        public async Task<User?> GetByEmail(string email)
         {
-            var userId = await _db.StringGetAsync($"email:{email}");
-            if (userId.IsNullOrEmpty)
+            try
             {
-                return null;
+               
+                var userId = await _db.StringGetAsync($"email:{email}");
+
+                
+                if (userId.IsNullOrEmpty)
+                {
+                    return null;
+                }
+                var userKey = $"user:{userId}";
+                var user = await GetById(userId.ToString());
+
+                if (user == null)
+                {
+                    return null;
+                }
+            
+                return user;
             }
-            return await GetById(userId.ToString());
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
         public async Task<User?> Create(User user)
         {

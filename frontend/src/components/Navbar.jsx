@@ -2,16 +2,21 @@ import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  UserCircleIcon,
+  ArrowRightOnRectangleIcon,
+  ShieldCheckIcon,
+} from "@heroicons/react/24/outline";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
-
-const navigation = [
-  { name: "Events", href: "/events" },
-  { name: "Locations", href: "/locations" },
-  { name: "Reservations", href: "/reservations" },
-];
+import { useAuth } from "../context/AuthContext";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,6 +24,33 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout, isAuthenticated, isAdmin } = useAuth();
+
+  // Admin vidi sve, User samo osnovne stranice
+  const getNavigation = () => {
+    const baseNav = [
+      { name: "Events", href: "/events" },
+      { name: "Locations", href: "/locations" },
+    ];
+
+    if (isAuthenticated()) {
+      baseNav.push({ name: "My Reservations", href: "/reservations" });
+    }
+
+    if (isAdmin()) {
+      baseNav.push({ name: "All Users", href: "/users" });
+    }
+
+    return baseNav;
+  };
+
+  const navigation = getNavigation();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <Disclosure
@@ -71,9 +103,68 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop SearchBar */}
-          <div className="hidden sm:flex max-w-52 pr-4">
-            <SearchBar />
+          {/* Desktop SearchBar + User Menu */}
+          <div className="hidden sm:flex items-center gap-5">
+            <div className="max-w-52">
+              <SearchBar />
+            </div>
+
+            {isAuthenticated() ? (
+              <Menu as="div" className="relative">
+                <MenuButton className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-sm text-white hover:bg-white/20 transition">
+                  <UserCircleIcon className="h-6 w-6" />
+                  <span className="font-medium">{user?.name}</span>
+                  {isAdmin() && (
+                    <ShieldCheckIcon className="h-5 w-5 text-yellow-300" />
+                  )}
+                </MenuButton>
+                <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5">
+                  <div className="px-4 py-2 border-b border-gray-200">
+                    <p className="text-sm font-medium text-gray-900">
+                      {user?.name}
+                    </p>
+                    <p className="text-xs text-gray-500">{user?.email}</p>
+                    <p className="text-xs text-indigo-600 font-semibold mt-1">
+                      {user?.role}
+                    </p>
+                  </div>
+                  <MenuItem>
+                    {({ active }) => (
+                      <Link
+                        to="/profile"
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        My Profile
+                      </Link>
+                    )}
+                  </MenuItem>
+                  <MenuItem>
+                    {({ active }) => (
+                      <button
+                        onClick={handleLogout}
+                        className={classNames(
+                          active ? "bg-gray-100" : "",
+                          "flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700"
+                        )}
+                      >
+                        <ArrowRightOnRectangleIcon className="h-5 w-5" />
+                        Logout
+                      </button>
+                    )}
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            ) : (
+              <Link
+                to="/login"
+                className="rounded-md bg-white px-4 py-2 text-sm font-semibold text-indigo-600 hover:bg-gray-100 transition"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -99,6 +190,41 @@ export default function Navbar() {
               </DisclosureButton>
             );
           })}
+
+          {/* Mobile user menu */}
+          {isAuthenticated() ? (
+            <>
+              <div className="border-t border-white/10 my-2"></div>
+              <div className="px-3 py-2">
+                <p className="text-white font-medium">{user?.name}</p>
+                <p className="text-gray-300 text-sm">{user?.email}</p>
+                <p className="text-yellow-300 text-xs font-semibold mt-1">
+                  {user?.role}
+                </p>
+              </div>
+              <DisclosureButton
+                as={Link}
+                to="/profile"
+                className="block rounded-md px-3 py-2 text-gray-300 hover:bg-white/5 hover:text-white"
+              >
+                My Profile
+              </DisclosureButton>
+              <button
+                onClick={handleLogout}
+                className="w-full text-left block rounded-md px-3 py-2 text-gray-300 hover:bg-white/5 hover:text-white"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <DisclosureButton
+              as={Link}
+              to="/login"
+              className="block rounded-md px-3 py-2 text-gray-300 hover:bg-white/5 hover:text-white"
+            >
+              Login
+            </DisclosureButton>
+          )}
         </div>
       </DisclosurePanel>
     </Disclosure>
