@@ -8,6 +8,10 @@ export function getReservationById(id) {
   return Get(`/reservation/${id}`);
 }
 
+export function getUserReservations(userId) {
+  return Get(`/reservation/me/`);
+}
+
 export function createReservation(reservation) {
   return Post("/reservation", reservation);
 }

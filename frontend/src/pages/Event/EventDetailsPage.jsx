@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEvents } from "../../context/EventContext";
 import { useReservations } from "../../context/ReservationContext";
 import { useAuth } from "../../context/AuthContext";
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
+  const navigate = useNavigate();
   const { getEventById, isLoading: eventsLoading } = useEvents();
   const { addReservation } = useReservations();
   const { user } = useAuth();
@@ -57,14 +58,17 @@ const EventDetailsPage = () => {
         eventId: event.id,
         createdAt: new Date().toISOString(),
       });
+
       setReservationSuccess(true);
 
-      // Refresh event data da se ažurira broj rezervacija
-      window.location.reload();
+      // Navigiraj na My Reservations umesto refresh-a
+      setTimeout(() => {
+        navigate("/reservations");
+      }, 1500);
     } catch (err) {
       console.error("Reservation error:", err);
       setReservationError(
-        err.message || "Failed to create reservation. Event might be full."
+        "Failed to create reservation. Event might be full or you already have a reservation."
       );
     } finally {
       setReservationLoading(false);
@@ -93,9 +97,11 @@ const EventDetailsPage = () => {
               📍 {event.location.name} · 📅 {event.formattedDate} · ⏰{" "}
               {event.formattedTime}
             </p>
-            <p className="text-gray-500">
-              {event.tags?.map((tag) => `#${tag} `)}
-            </p>
+            {event.tags && event.tags.length > 0 && (
+              <p className="text-gray-500">
+                {event.tags.map((tag) => `#${tag} `)}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -128,7 +134,7 @@ const EventDetailsPage = () => {
               {/* Success poruka */}
               {reservationSuccess && (
                 <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
-                  ✓ Reservation successful!
+                  ✓ Reservation successful! Redirecting to My Reservations...
                 </div>
               )}
 
@@ -141,11 +147,17 @@ const EventDetailsPage = () => {
 
               <button
                 onClick={handleReservation}
-                disabled={reservationLoading || availableSeats === 0}
+                disabled={
+                  reservationLoading ||
+                  availableSeats === 0 ||
+                  reservationSuccess
+                }
                 className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {reservationLoading
                   ? "Reserving..."
+                  : reservationSuccess
+                  ? "Reserved!"
                   : availableSeats === 0
                   ? "Sold Out"
                   : "Reserve seat"}

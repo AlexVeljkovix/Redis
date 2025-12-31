@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext, createContext } from "react";
 import {
   getAllEvents,
-  getEventReservationIds,
   getEventReservationNumber,
   createEvent,
   updateEvent,
@@ -44,15 +43,9 @@ export const EventProvider = ({ children }) => {
     const fetchEvents = async () => {
       try {
         const data = await getAllEvents();
-        const enrichedEvents = await Promise.all(
-          data.map((event) => enrichEvent(event))
-        );
-
-        setEvents(
-          enrichedEvents.sort((a, b) => new Date(a.date) - new Date(b.date))
-        );
+        const enriched = await Promise.all(data.map(enrichEvent));
+        setEvents(enriched.sort((a, b) => new Date(a.date) - new Date(b.date)));
       } catch (err) {
-        console.error(err);
         setError(err);
       } finally {
         setIsLoading(false);
@@ -62,18 +55,22 @@ export const EventProvider = ({ children }) => {
     fetchEvents();
   }, []);
 
-  const getEventById = (id) => {
-    return events.find((e) => e.id === id) ?? null;
-  };
+  const getEventById = (id) => events.find((e) => e.id === id) ?? null;
 
-  const getReservationsForEvent = async (eventId) => {
-    return await getEventReservationIds(eventId);
+  // 🔥 KLJUČNA FUNKCIJA
+  const incrementReservationCount = (eventId, delta) => {
+    setEvents((prev) =>
+      prev.map((e) =>
+        e.id === eventId
+          ? { ...e, reservationNumber: e.reservationNumber + delta }
+          : e
+      )
+    );
   };
 
   const addEvent = async (eventData) => {
     const created = await createEvent(eventData);
     const enriched = await enrichEvent(created);
-
     setEvents((prev) =>
       [...prev, enriched].sort((a, b) => new Date(a.date) - new Date(b.date))
     );
@@ -82,7 +79,6 @@ export const EventProvider = ({ children }) => {
   const changeEvent = async (eventId, updatedData) => {
     const updated = await updateEvent(eventId, updatedData);
     const enriched = await enrichEvent(updated);
-
     setEvents((prev) => prev.map((e) => (e.id === eventId ? enriched : e)));
   };
 
@@ -98,10 +94,10 @@ export const EventProvider = ({ children }) => {
         isLoading,
         error,
         getEventById,
-        getReservationsForEvent,
         addEvent,
         changeEvent,
         removeEvent,
+        incrementReservationCount, // 👈 BITNO
       }}
     >
       {children}

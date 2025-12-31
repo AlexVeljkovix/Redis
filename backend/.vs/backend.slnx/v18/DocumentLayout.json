@@ -62,8 +62,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-12-30T22:23:46.081Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T22:23:46.081Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "RelativeToolTip": "Repos\\UserRepo.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAADgv0QAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T15:52:17.616Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-29T15:52:17.616Z"
             },
             {
               "$type": "Document",
@@ -88,8 +86,7 @@
               "RelativeToolTip": "Services\\UserService.cs",
               "ViewState": "AgIAAIsAAAAAAAAAAAAvwJUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T16:15:25.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-29T16:15:25.624Z"
             },
             {
               "$type": "Document",
@@ -101,8 +98,7 @@
               "RelativeToolTip": "Services\\AdminSeedService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T22:24:37.888Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T22:24:37.888Z"
             },
             {
               "$type": "Document",
@@ -114,8 +110,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAGsAAAAAAAAAAADwv3QAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-30T18:17:07.672Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-30T18:17:07.672Z"
             },
             {
               "$type": "Document",
@@ -152,8 +147,7 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAAC8AAAAAAAAAAADwvz8AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T16:33:04.44Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-29T16:33:04.44Z"
             }
           ]
         }

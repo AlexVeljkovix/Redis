@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+
 const ReservationCard = ({ reservation, event, onCancel }) => {
+  const { isAdmin } = useAuth();
+
   if (!event) return null;
 
   const isPastEvent = new Date(event.date) < new Date();
@@ -12,12 +16,24 @@ const ReservationCard = ({ reservation, event, onCancel }) => {
             <h3 className="text-xl font-bold text-gray-900 mb-2">
               {event.name}
             </h3>
+
             <div className="text-gray-600 space-y-1">
               <p>📍 {event.location?.name}</p>
               <p>📅 {event.formattedDate}</p>
               <p>⏰ {event.formattedTime}</p>
+
+              {/* 👑 Admin vidi ko je kreirao rezervaciju */}
+              {isAdmin() && (
+                <p className="text-sm text-gray-500 mt-2">
+                  👤 User ID:{" "}
+                  <span className="font-mono text-gray-700">
+                    {reservation.userId}
+                  </span>
+                </p>
+              )}
             </div>
           </div>
+
           {isPastEvent && (
             <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-semibold">
               Past Event
@@ -34,6 +50,7 @@ const ReservationCard = ({ reservation, event, onCancel }) => {
               Cancel Reservation
             </button>
           )}
+
           <Link
             to={`/events/${event.id}`}
             className="bg-indigo-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-indigo-700 transition"

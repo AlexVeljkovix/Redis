@@ -1,7 +1,9 @@
-import { useState, useContext, createContext, useEffect } from "react";
-import { useAuth } from "./AuthContext"; // DODAJ OVO
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+import { useEvents } from "./EventContext";
 import {
   getAllReservations,
+  getUserReservations,
   createReservation,
   deleteReservation,
 } from "../api/reservationApi";
@@ -9,53 +11,60 @@ import {
 const ReservationContext = createContext();
 
 export const ReservationProvider = ({ children }) => {
-  const { isAuthenticated, isAdmin } = useAuth(); // DODAJ OVO
+  const { isAuthenticated, isAdmin } = useAuth();
+  const { incrementReservationCount } = useEvents();
+
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchReservations = async () => {
-      // SAMO ako je admin pokušaj da učita sve rezervacije
-      if (!isAdmin()) {
-        setIsLoading(false);
-        return;
-      }
-
       try {
-        const data = await getAllReservations();
+        const data = isAdmin()
+          ? await getAllReservations()
+          : await getUserReservations();
+
         setReservations(data);
       } catch (err) {
-        console.error("Failed to fetch reservations:", err);
         setError(err);
       } finally {
         setIsLoading(false);
       }
     };
 
-    // ČEKAJ da se auth učita
     if (isAuthenticated()) {
       fetchReservations();
     } else {
+      setReservations([]);
       setIsLoading(false);
     }
   }, [isAuthenticated, isAdmin]);
 
-  const getReservationById = (id) => {
-    return reservations.find((r) => r.id === id);
-  };
-
+  // ✅ DODAVANJE
   const addReservation = async (reservation) => {
     const res = await createReservation(reservation);
-    setReservations((prevReservations) => [...prevReservations, res]);
+
+    setReservations((prev) => [...prev, res]);
+
+    // 🔥 odmah smanji available seats
+    incrementReservationCount(res.eventId, 1);
+
     return res;
   };
 
+  // ✅ BRISANJE
   const removeReservation = async (reservationId) => {
+    const res = reservations.find((r) => r.id === reservationId);
+
     await deleteReservation(reservationId);
-    setReservations((prevReservations) =>
-      prevReservations.filter((r) => r.id !== reservationId)
-    );
+
+    setReservations((prev) => prev.filter((r) => r.id !== reservationId));
+
+    if (res) {
+      // 🔥 vrati seat nazad
+      incrementReservationCount(res.eventId, -1);
+    }
   };
 
   return (
@@ -64,7 +73,6 @@ export const ReservationProvider = ({ children }) => {
         reservations,
         isLoading,
         error,
-        getReservationById,
         addReservation,
         removeReservation,
       }}

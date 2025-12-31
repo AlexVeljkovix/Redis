@@ -34,11 +34,12 @@ export default function Navbar() {
       { name: "Locations", href: "/locations" },
     ];
 
-    if (isAuthenticated()) {
+    if (isAuthenticated() && !isAdmin()) {
       baseNav.push({ name: "My Reservations", href: "/reservations" });
     }
 
     if (isAdmin()) {
+      baseNav.push({ name: "All Reservations", href: "/reservations" });
       baseNav.push({ name: "All Users", href: "/users" });
     }
 
