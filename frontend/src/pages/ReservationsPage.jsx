@@ -68,7 +68,7 @@ const ReservationsPage = () => {
         {isAdmin() && reservations.length > 0 && (
           <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
             <p className="text-sm text-yellow-800">
-              ℹ️ Admin view: Total reservations: {reservations.length}
+              Admin view: Total reservations: {reservations.length}
             </p>
           </div>
         )}

@@ -30,11 +30,9 @@ const App = () => {
                 <Navbar />
                 <div className="min-h-screen flex flex-col">
                   <Routes>
-                    {/* Public routes */}
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/register" element={<RegisterForm />} />
 
-                    {/* Protected routes - Sve autentifikovane */}
                     <Route
                       path="/events"
                       element={
@@ -92,7 +90,6 @@ const App = () => {
                       }
                     />
 
-                    {/* Admin only routes */}
                     <Route
                       path="/users"
                       element={
@@ -102,7 +99,6 @@ const App = () => {
                       }
                     />
 
-                    {/* Redirect */}
                     <Route
                       path="/"
                       element={<Navigate to="/events" replace />}

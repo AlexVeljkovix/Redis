@@ -164,7 +164,7 @@ namespace backend.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Login exception: {ex.Message}");
+                Console.WriteLine($"Login exception: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
                 throw;
             }

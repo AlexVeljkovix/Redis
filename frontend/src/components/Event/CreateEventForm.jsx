@@ -35,7 +35,6 @@ const CreateEventForm = ({ setShowForm }) => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Event Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Event Name
@@ -50,7 +49,6 @@ const CreateEventForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Date & Time */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -78,7 +76,6 @@ const CreateEventForm = ({ setShowForm }) => {
               </div>
             </div>
 
-            {/* Description */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Description
@@ -92,7 +89,6 @@ const CreateEventForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Tags & Capacity */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -121,7 +117,6 @@ const CreateEventForm = ({ setShowForm }) => {
               </div>
             </div>
 
-            {/* Location */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Location
@@ -141,7 +136,6 @@ const CreateEventForm = ({ setShowForm }) => {
               </select>
             </div>
 
-            {/* Actions */}
             <div className="flex justify-end gap-4 pt-4">
               <button
                 type="button"

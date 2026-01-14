@@ -21,10 +21,8 @@ const LocationEventsPage = () => {
       try {
         setIsLoading(true);
 
-        // čekaj dok lokacije nisu učitane iz Context-a
         let loc = getLocationById(locationId);
         if (!loc) {
-          // fallback: pozovi API direktno ako lokacija nije u Context-u
           loc = await getLocationByIdAPI(locationId);
         }
 
@@ -39,7 +37,6 @@ const LocationEventsPage = () => {
       }
     };
 
-    // samo pokreni fetch ako lokacije iz Context-a nisu još uvek loading
     if (!locationsLoading) {
       fetchEvents();
     }
@@ -71,16 +68,18 @@ const LocationEventsPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
-      <div className="flex justify-between mb-5">
-        <h1 className="text-4xl font-bold mb-6 text-gray-900">
-          Upcoming Events at {location?.name}
-        </h1>
-      </div>
+      <div className="max-w-5xl mx-auto">
+        <div className="flex justify-between mb-5">
+          <h1 className="text-4xl font-bold mb-6 text-gray-900">
+            Upcoming Events at {location?.name}
+          </h1>
+        </div>
 
-      <div className="flex flex-col items-center gap-6 w-4/5 mx-auto">
-        {events.map((event) => (
-          <EventCardForLocation key={event.id} eventId={event.id} />
-        ))}
+        <div className="flex flex-col items-center gap-6 w-4/5 mx-auto">
+          {events.map((event) => (
+            <EventCardForLocation key={event.id} eventId={event.id} />
+          ))}
+        </div>
       </div>
     </div>
   );

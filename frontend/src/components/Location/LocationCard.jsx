@@ -9,20 +9,16 @@ const LocationCard = ({ location }) => {
   return (
     <div className="bg-linear-to-br from-indigo-600 to-purple-600 p-0.5 shadow-lg hover:shadow-xl transition w-full max-w-3xl mx-auto">
       <div className="bg-white p-5 h-full flex flex-col">
-        {/* HEADER */}
         <div className="flex items-start justify-between mb-3">
           <h3 className="text-2xl font-bold text-gray-900">{location.name}</h3>
         </div>
 
-        {/* INFO */}
         <div className="text-gray-600 space-y-1 mb-4">
           <p>📍 {location.address}</p>
         </div>
 
-        {/* FOOTER */}
         <div className="flex justify-end mt-auto">
           <div className="flex gap-3 justify-end w-full">
-            {/* Samo admin vidi Delete dugme */}
             {isAdmin() && (
               <button
                 onClick={() => removeLocation(location.id)}

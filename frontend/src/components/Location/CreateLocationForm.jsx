@@ -26,7 +26,6 @@ const CreateLocationForm = ({ setShowForm }) => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Event Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Location Name
@@ -40,7 +39,6 @@ const CreateLocationForm = ({ setShowForm }) => {
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-            {/* Address */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Address
@@ -54,7 +52,6 @@ const CreateLocationForm = ({ setShowForm }) => {
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-            {/* Description */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Description
@@ -68,7 +65,6 @@ const CreateLocationForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Actions */}
             <div className="flex justify-end gap-4 pt-4">
               <button
                 type="button"

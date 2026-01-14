@@ -41,19 +41,16 @@ export const ReservationProvider = ({ children }) => {
     }
   }, [isAuthenticated, isAdmin]);
 
-  // ✅ DODAVANJE
   const addReservation = async (reservation) => {
     const res = await createReservation(reservation);
 
     setReservations((prev) => [...prev, res]);
 
-    // 🔥 odmah smanji available seats
     incrementReservationCount(res.eventId, 1);
 
     return res;
   };
 
-  // ✅ BRISANJE
   const removeReservation = async (reservationId) => {
     const res = reservations.find((r) => r.id === reservationId);
 
@@ -62,7 +59,6 @@ export const ReservationProvider = ({ children }) => {
     setReservations((prev) => prev.filter((r) => r.id !== reservationId));
 
     if (res) {
-      // 🔥 vrati seat nazad
       incrementReservationCount(res.eventId, -1);
     }
   };

@@ -27,7 +27,6 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { user, logout, isAuthenticated, isAdmin } = useAuth();
 
-  // Admin vidi sve, User samo osnovne stranice
   const getNavigation = () => {
     const baseNav = [
       { name: "Events", href: "/events" },
@@ -60,7 +59,6 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          {/* Mobile menu button + SearchBar */}
           <div className="absolute inset-y-0 left-0 right-0 flex items-center sm:hidden px-2">
             <DisclosureButton className="mr-2 group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
               <span className="sr-only">Open main menu</span>
@@ -79,7 +77,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop navigation */}
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
@@ -104,7 +101,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop SearchBar + User Menu */}
           <div className="hidden sm:flex items-center gap-5">
             <div className="max-w-52">
               <SearchBar />
@@ -170,7 +166,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile navigation */}
       <DisclosurePanel className="sm:hidden px-2 pt-2 pb-3">
         <div className="space-y-1">
           {navigation.map((item) => {
@@ -192,7 +187,6 @@ export default function Navbar() {
             );
           })}
 
-          {/* Mobile user menu */}
           {isAuthenticated() ? (
             <>
               <div className="border-t border-white/10 my-2"></div>

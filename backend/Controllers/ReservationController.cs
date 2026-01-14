@@ -80,7 +80,7 @@ namespace backend.Controllers
         }
 
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="User, Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Reservation>> Delete(string id)
         {

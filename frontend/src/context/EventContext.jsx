@@ -57,7 +57,6 @@ export const EventProvider = ({ children }) => {
 
   const getEventById = (id) => events.find((e) => e.id === id) ?? null;
 
-  // 🔥 KLJUČNA FUNKCIJA
   const incrementReservationCount = (eventId, delta) => {
     setEvents((prev) =>
       prev.map((e) =>
@@ -97,7 +96,7 @@ export const EventProvider = ({ children }) => {
         addEvent,
         changeEvent,
         removeEvent,
-        incrementReservationCount, // 👈 BITNO
+        incrementReservationCount,
       }}
     >
       {children}

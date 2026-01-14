@@ -41,31 +41,32 @@ const EventsPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-8">
-      <div className="flex justify-between items-center mb-5">
-        <h1 className="text-4xl font-bold text-gray-900">Upcoming Events</h1>
+      <div className="max-w-5xl mx-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-4xl font-bold text-gray-900">Events</h1>
 
-        {/* Samo admin vidi dugme za kreiranje */}
-        {isAdmin() && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-indigo-600 text-white py-2 px-4 h-10 rounded-lg font-semibold hover:bg-indigo-700 transition cursor-pointer"
-          >
-            Add New Event
-          </button>
+          {isAdmin() && (
+            <button
+              onClick={() => setShowForm(true)}
+              className="bg-indigo-600 text-white py-2 px-4 h-10 rounded-lg font-semibold hover:bg-indigo-700 transition cursor-pointer"
+            >
+              Add New Event
+            </button>
+          )}
+        </div>
+
+        {!filteredEvents || filteredEvents.length === 0 ? (
+          <div className="flex items-center justify-center py-20">
+            <p className="text-gray-500 text-lg">No events found.</p>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-6">
+            {filteredEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
         )}
       </div>
-
-      {!filteredEvents || filteredEvents.length === 0 ? (
-        <div className="flex items-center justify-center py-20">
-          <p className="text-gray-500 text-lg">No events found.</p>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center gap-6 w-4/5 mx-auto">
-          {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} />
-          ))}
-        </div>
-      )}
     </div>
   );
 };

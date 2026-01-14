@@ -8,9 +8,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// =====================
-// Redis
-// =====================
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var configuration = ConfigurationOptions.Parse("localhost:6379");
@@ -19,17 +17,13 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 
 builder.Services.AddSingleton<RedisContext>();
 
-// =====================
-// Repos
-// =====================
+
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IEventRepo, EventRepo>();
 builder.Services.AddScoped<IReservationRepo, ReservationRepo>();
 builder.Services.AddScoped<ILocationRepo, LocationRepo>();
 
-// =====================
-// Services
-// =====================
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<ReservationService>();
@@ -37,31 +31,25 @@ builder.Services.AddScoped<LocationService>();
 builder.Services.AddScoped<JWTService>();
 builder.Services.AddScoped<AdminSeedService>();
 
-// =====================
-// Controllers & Swagger
-// =====================
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// =====================
-// CORS - VAŽNO!
-// =====================
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevCorsPolicy", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173", "https://localhost:5173") // Dodaj HTTPS
+            .WithOrigins("http://localhost:5173", "https://localhost:5173") 
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // DODAJ OVO!
+            .AllowCredentials();
     });
 });
 
-// =====================
-// JWT Authentication
-// =====================
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -71,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ClockSkew = TimeSpan.Zero, // DODAJ OVO
+            ClockSkew = TimeSpan.Zero, 
 
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
@@ -80,7 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             )
         };
 
-        // DODAJ EVENT HANDLERS ZA DEBUGGING
+        
         options.Events = new JwtBearerEvents
         {
             OnAuthenticationFailed = context =>
@@ -98,9 +86,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-// =====================
-// Middleware - REDOSLED JE VAŽAN!
-// =====================
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -109,17 +95,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// CORS MORA BITI PRE Authentication/Authorization!
 app.UseCors("DevCorsPolicy");
 
-app.UseAuthentication(); // Prvo Authentication
-app.UseAuthorization();  // Zatim Authorization
+app.UseAuthentication(); 
+app.UseAuthorization();  
 
 app.MapControllers();
 
-// =====================
-// Admin seed
-// =====================
+
 using (var scope = app.Services.CreateScope())
 {
     try

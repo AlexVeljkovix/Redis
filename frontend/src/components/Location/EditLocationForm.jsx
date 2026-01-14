@@ -17,7 +17,6 @@ const EditLocationForm = ({ setShowForm }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // čekaj dok lokacije nisu učitane
     if (locationsLoading) return;
 
     try {
@@ -42,7 +41,7 @@ const EditLocationForm = ({ setShowForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !address) return; // jednostavna validacija
+    if (!name || !address) return;
     changeLocation(locationId, { name, address, description });
     setShowForm(false);
   };
@@ -72,7 +71,6 @@ const EditLocationForm = ({ setShowForm }) => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Location Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Location Name
@@ -87,7 +85,6 @@ const EditLocationForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Address */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Address
@@ -102,7 +99,6 @@ const EditLocationForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Description */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-1">
                 Description
@@ -116,7 +112,6 @@ const EditLocationForm = ({ setShowForm }) => {
               />
             </div>
 
-            {/* Actions */}
             <div className="flex justify-end gap-4 pt-4">
               <button
                 type="button"

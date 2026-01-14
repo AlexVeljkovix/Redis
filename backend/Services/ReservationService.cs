@@ -41,11 +41,42 @@ namespace backend.Services
 
             return 1
         ";
+
+        private const string DeleteReservationLua = @"
+            -- KEYS:
+            -- 1 = reservation:{id}
+            -- 2 = allReservations
+            -- 3 = user:{userId}:reservations
+            -- 4 = event:{eventId}:reservations
+
+            -- ARGV:
+            -- 1 = userId
+            -- 2 = eventId
+            -- 3 = reservationId
+
+            -- Proveri da li rezervacija postoji
+            if not redis.call('EXISTS', KEYS[1]) then
+                return nil
+            end
+
+            -- Uzmi podatke pre brisanja (za povratnu vrednost)
+            local reservationData = redis.call('HGET', KEYS[1], 'data')
+
+            -- Obriši iz svih skupova
+            redis.call('HDEL', KEYS[1], 'data')
+            redis.call('DEL', KEYS[1])
+            redis.call('SREM', KEYS[2], KEYS[1])
+            redis.call('SREM', KEYS[3], ARGV[3])
+            redis.call('SREM', KEYS[4], ARGV[3])
+
+            return reservationData
+        ";
+
         public ReservationService(IReservationRepo reservationRepo, IEventRepo eventRepo, IUserRepo userRepo, RedisContext context)
         {
             _reservationRepo = reservationRepo;
             _eventRepo = eventRepo;
-            _userRepo=userRepo;
+            _userRepo = userRepo;
             _db = context.Db;
         }
 
@@ -53,6 +84,7 @@ namespace backend.Services
         {
             return await _reservationRepo.GetAll();
         }
+
         public async Task<Reservation?> GetById(string id)
         {
             return await _reservationRepo.GetById(id);
@@ -68,12 +100,11 @@ namespace backend.Services
                 if (res != null)
                 {
                     reservations.Add(res);
-                } 
+                }
             }
 
             return reservations;
         }
-
 
         public async Task<Reservation?> GetUserReservationById(string userId, string reservationId)
         {
@@ -93,14 +124,16 @@ namespace backend.Services
             {
                 return null;
             }
+
             var res = new Reservation
             {
                 UserId = reservation.UserId,
                 EventId = reservation.EventId,
                 CreatedAt = reservation.CreatedAt
             };
+
             var reservationJson = JsonSerializer.Serialize(res);
-            var reservationId=res.Id;
+            var reservationId = res.Id;
             var result = (int)await _db.ScriptEvaluateAsync(CreateReservationLua,
                 new RedisKey[]
                 {
@@ -108,7 +141,8 @@ namespace backend.Services
                     $"reservation:{reservationId}",
                     "allReservations",
                     $"user:{res.UserId}:reservations"
-                }, new RedisValue[]
+                },
+                new RedisValue[]
                 {
                     e.Capacity,
                     reservationId,
@@ -116,16 +150,38 @@ namespace backend.Services
                     res.EventId,
                     reservationJson
                 });
+
             if (result == 0)
             {
                 return null;
             }
+
             return res;
         }
 
-        public async Task<Reservation?>Delete(string id)
+        public async Task<Reservation?> Delete(string id)
         {
-            return await _reservationRepo.Delete(id);
-        } 
+            var reservation = await GetById(id);
+            if (reservation == null) return null;
+
+            var result = await _db.ScriptEvaluateAsync(DeleteReservationLua,
+                new RedisKey[]
+                {
+                    $"reservation:{id}",
+                    "allReservations",
+                    $"user:{reservation.UserId}:reservations",
+                    $"event:{reservation.EventId}:reservations"
+                },
+                new RedisValue[]
+                {
+                    reservation.UserId,
+                    reservation.EventId,
+                    id
+                });
+
+            if (result.IsNull) return null;
+
+            return reservation;
+        }
     }
 }

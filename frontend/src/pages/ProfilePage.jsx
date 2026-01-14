@@ -18,7 +18,6 @@ const ProfilePage = () => {
       <div className="max-w-3xl mx-auto">
         <div className="bg-linear-to-br from-indigo-600 to-purple-600 p-0.5 shadow-xl rounded-lg">
           <div className="bg-white p-8 rounded-lg">
-            {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
               {isAdmin() && (
@@ -28,7 +27,6 @@ const ProfilePage = () => {
               )}
             </div>
 
-            {/* User Info */}
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-500 mb-1">
@@ -65,7 +63,6 @@ const ProfilePage = () => {
               </div>
             </div>
 
-            {/* Actions */}
             <div className="mt-8 pt-6 border-t border-gray-200">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">
                 Quick Actions

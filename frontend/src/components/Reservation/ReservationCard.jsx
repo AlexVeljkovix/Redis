@@ -21,16 +21,20 @@ const ReservationCard = ({ reservation, event, onCancel }) => {
               <p>📍 {event.location?.name}</p>
               <p>📅 {event.formattedDate}</p>
               <p>⏰ {event.formattedTime}</p>
-
-              {/* 👑 Admin vidi ko je kreirao rezervaciju */}
               {isAdmin() && (
-                <p className="text-sm text-gray-500 mt-2">
-                  👤 User ID:{" "}
+                <p className="text-sm text-gray-500 mt-2 font-mono">
+                  User ID:{" "}
                   <span className="font-mono text-gray-700">
                     {reservation.userId}
                   </span>
                 </p>
               )}
+              <p className="text-sm text-gray-500 mt-2 font-mono">
+                Reservation ID:{" "}
+                <span className="font-mono text-gray-700">
+                  {reservation.id}
+                </span>
+              </p>
             </div>
           </div>
 
@@ -42,14 +46,12 @@ const ReservationCard = ({ reservation, event, onCancel }) => {
         </div>
 
         <div className="flex gap-3 justify-end mt-4">
-          {!isPastEvent && (
-            <button
-              onClick={() => onCancel(reservation.id)}
-              className="bg-red-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-700 transition"
-            >
-              Cancel Reservation
-            </button>
-          )}
+          <button
+            onClick={() => onCancel(reservation.id)}
+            className="bg-red-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-700 transition"
+          >
+            Cancel Reservation
+          </button>
 
           <Link
             to={`/events/${event.id}`}

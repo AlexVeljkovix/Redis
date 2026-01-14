@@ -47,7 +47,6 @@ namespace backend.Controllers
         {
             try
             {
-                // KRITIČNO: Proveri da li su kredencijali poslati
                 if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
                 {
                     return BadRequest(new { message = "Email and password are required" });
