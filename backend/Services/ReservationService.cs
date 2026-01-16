@@ -54,15 +54,12 @@ namespace backend.Services
             -- 2 = eventId
             -- 3 = reservationId
 
-            -- Proveri da li rezervacija postoji
             if not redis.call('EXISTS', KEYS[1]) then
                 return nil
             end
 
-            -- Uzmi podatke pre brisanja (za povratnu vrednost)
             local reservationData = redis.call('HGET', KEYS[1], 'data')
 
-            -- Obriši iz svih skupova
             redis.call('HDEL', KEYS[1], 'data')
             redis.call('DEL', KEYS[1])
             redis.call('SREM', KEYS[2], KEYS[1])
@@ -122,7 +119,7 @@ namespace backend.Services
             var user = await _userRepo.GetById(reservation.UserId);
             if (e == null || user == null)
             {
-                return null;
+                return null; 
             }
 
             var res = new Reservation

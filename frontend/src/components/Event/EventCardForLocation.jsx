@@ -5,10 +5,10 @@ import { useEvents } from "../../context/EventContext";
 const EventCardForLocation = ({ eventId }) => {
   const { getEventById, isLoading } = useEvents();
   const [e, setEvent] = useState(null);
-
   useEffect(() => {
     const ev = getEventById(eventId);
     setEvent(ev);
+    console.log(e);
   }, [eventId, getEventById]);
 
   if (isLoading || !e) {
@@ -29,12 +29,16 @@ const EventCardForLocation = ({ eventId }) => {
 
           <span
             className={`font-semibold px-2 py-1 rounded-full ${
-              lowSeats
+              new Date(e.date) < new Date()
+                ? "bg-gray-200 text-gray-600"
+                : lowSeats
                 ? "bg-red-100 text-red-600"
                 : "bg-green-100 text-green-600"
             }`}
           >
-            {e.capacity - e.reservationNumber} seats left
+            {new Date(e.date) < new Date()
+              ? "Event finished"
+              : `${e.capacity - e.reservationNumber} seats left`}
           </span>
         </div>
 

@@ -8,7 +8,6 @@ const EventCard = ({ event }) => {
 
   const availableSeats = event.capacity - event.reservationNumber;
   const lowSeats = availableSeats < 20;
-
   const isPastEvent = new Date(event.date) < new Date();
 
   return (
